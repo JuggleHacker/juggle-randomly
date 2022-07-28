@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TalkingButton from './components/TalkingButton';
 import InputAndPrompt from './components/InputAndPrompt';
 import CheckBoxAndPrompt from './components/CheckboxAndPrompt';
 import generateRandomSiteswap from './siteswap/SiteswapUtils';
 import DropdownExample from './components/DropdownExample';
+import * as Speech from 'expo-speech';
 
 export default function App() {
   const [numberOfObjects, setNumberOfObjects] = useState(3)
   const [maxThrow, setMaxThrow] = useState(6)
   const [siteswap, setSiteswap] = useState([5,3,1])
   const [handAcrossToAvoidEmptyHand, setHandAcrossToAvoidEmptyHand] = useState(true);
-  const [fruit, setFruit] = useState(null);
+  const [voice, setVoice] = useState('Google UK English Female');
+  const [voices, setVoices] = useState([]);
+
+  useEffect(() => {
+    Speech.getAvailableVoicesAsync()
+      .then(voices => setVoices(voices))
+    return
+  }, []);
 
   return (
     <View
@@ -47,16 +55,18 @@ export default function App() {
       <Text style={{margin: 8}}>Language:</Text>
       <DropdownExample
         style={{margin: 100}}
-        setSelected={setFruit} 
-        prompt='What is your favourite fruit?'
+        data={voices.map(voice => voice.identifier)}
+        setSelected={setVoice} 
+        prompt='Voice/language:'
+        placeholder='Google UK English Female'
       />
       <View style={{margin:8}}>
         <TalkingButton 
           title='Press me!' 
-          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, 10, handAcrossToAvoidEmptyHand).map(i => i == 0 ? "O" : i)} 
+          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, 10, handAcrossToAvoidEmptyHand).map(i => i == 0 ? "O" : i).join(' ')}
+          voice={voice}
         />
       </View>
-      <Text>{fruit ? `I like eating ${fruit}` : ''}</Text>
     </View>
   )
 }

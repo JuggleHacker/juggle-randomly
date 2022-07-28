@@ -2,11 +2,11 @@ import React from 'react';
 import { Button } from 'react-native';
 import * as Speech from 'expo-speech';
 
-const TalkingButton = ({ title, textToSpeak}) => {
+const TalkingButton = ({ title, textToSpeak, voice}) => {
     return (
         <Button 
             title={title} 
-            onPress={() => {console.log(`I will now say: ${textToSpeak}`); Speech.speak(textToSpeak, {rate: 1.3})} }
+            onPress={() => {Speech.speak(textToSpeak, {rate: 1.3, voice:voice})} }
         />
     )
 }

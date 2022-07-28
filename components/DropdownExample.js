@@ -2,13 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SelectList from 'react-native-dropdown-select-list';
  
-const DropdownExample = ({ setSelected }) => {
-    const data = ['Mango', 'Banana', 'Apple']
+const DropdownExample = ({ data, setSelected, placeholder }) => {
     return (
             <SelectList
-                placeholder='Voice/Language'
                 data={data}
                 setSelected={setSelected}
+                placeholder={placeholder}
             />
     )
 }
