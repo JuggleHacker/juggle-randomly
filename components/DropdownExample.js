@@ -8,6 +8,7 @@ const DropdownExample = ({ data, setSelected, placeholder }) => {
                 data={data}
                 setSelected={setSelected}
                 placeholder={placeholder}
+                search={false}
             />
     )
 }

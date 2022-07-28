@@ -12,12 +12,16 @@ export default function App() {
   const [maxThrow, setMaxThrow] = useState(6)
   const [siteswap, setSiteswap] = useState([5,3,1])
   const [handAcrossToAvoidEmptyHand, setHandAcrossToAvoidEmptyHand] = useState(true);
-  const [voice, setVoice] = useState('Google UK English Female');
+  const [voice, setVoice] = useState(null);
   const [voices, setVoices] = useState([]);
+  const [talkingSpeed, setTalkingSpeed] = useState(1.3);
 
   useEffect(() => {
     Speech.getAvailableVoicesAsync()
-      .then(voices => setVoices(voices))
+      .then(voices => {
+        setVoices(voices); 
+        setVoice(voices[0].identifier)
+      })
     return
   }, []);
 
@@ -58,13 +62,24 @@ export default function App() {
         data={voices.map(voice => voice.identifier)}
         setSelected={setVoice} 
         prompt='Voice/language:'
-        placeholder='Google UK English Female'
+        placeholder={voice}
+      />
+      <InputAndPrompt 
+        prompt='Talking speed:'
+        defaultValue='1.3'
+        onChange={newInput => {
+          const newTalkingSpeed = parseFloat(newInput);
+          if (!isNaN(newTalkingSpeed)) {
+            setTalkingSpeed(newTalkingSpeed); 
+          }
+        }}
       />
       <View style={{margin:8}}>
         <TalkingButton 
           title='Press me!' 
-          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, 10, handAcrossToAvoidEmptyHand).map(i => i == 0 ? "O" : i).join(' ')}
+          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, 10, handAcrossToAvoidEmptyHand).join(' ')}
           voice={voice}
+          talkingSpeed={talkingSpeed}
         />
       </View>
     </View>
