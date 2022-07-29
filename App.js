@@ -7,6 +7,7 @@ import generateRandomSiteswap from './siteswap/SiteswapUtils';
 import DropdownExample from './components/DropdownExample';
 import * as Speech from 'expo-speech';
 import PatternList from './components/PatternList'
+import SpeechInputs from './components/SpeechInputs';
 
 export default function App() {
   const [numberOfObjects, setNumberOfObjects] = useState(3)
@@ -68,24 +69,6 @@ export default function App() {
         value={handAcrossToAvoidEmptyHand}
         onValueChange={setHandAcrossToAvoidEmptyHand}
       />
-      <Text style={{margin: 8}}>Language:</Text>
-      <DropdownExample
-        style={{margin: 100}}
-        data={voices.map(voice => voice.identifier)}
-        setSelected={setVoice} 
-        prompt='Voice/language:'
-        placeholder={voice}
-      />
-      <InputAndPrompt 
-        prompt='Talking speed:'
-        defaultValue='1.3'
-        onChange={newInput => {
-          const newTalkingSpeed = parseFloat(newInput);
-          if (!isNaN(newTalkingSpeed)) {
-            setTalkingSpeed(newTalkingSpeed); 
-          }
-        }}
-      />
       <Button 
         title='Generate pattern'
         onPress={() => {
@@ -109,6 +92,12 @@ export default function App() {
           voice={voice}
         />
       </View>
+      <SpeechInputs
+        active={generatedPatterns.length > 0}
+        setVoice={setVoice}
+        setTalkingSpeed={setTalkingSpeed}
+        voices={voices}
+      />
     </View>
   )
 }

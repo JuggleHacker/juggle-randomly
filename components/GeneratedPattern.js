@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, SliderComponent, StyleSheet, Text, View } from 'react-native';
 import * as Speech from 'expo-speech';
 
 const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
@@ -10,6 +10,22 @@ const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
                 style={styles.button}
                 onPress={() => Speech.speak(pattern, {rate: talkingSpeed, voice: voice})}
                 title='▶️'
+            />
+            <Button
+                style={styles.button}
+                onPress={() => {
+                    var timesLeft = 10;
+                    while (timesLeft > 0 ) {
+                        Speech.speak(pattern, {rate: talkingSpeed, voice: voice});
+                        timesLeft -= 1;
+                    }
+                }}
+                title='🔁'
+            />
+            <Button
+                style={styles.button}
+                onPress={() => Speech.stop()}
+                title='⏹️'
             />
             <Button
                 style={styles.button}
@@ -31,8 +47,8 @@ const styles = StyleSheet.create({
         alignItems:'left'
     },
     button: {
-      height: 90,
-      width: 90,
+      height: 80,
+      width: 80,
       color: "white",
       fontSize: 16,
       alignContent:'right',
