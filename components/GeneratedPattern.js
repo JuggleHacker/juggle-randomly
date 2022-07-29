@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import * as Speech from 'expo-speech';
 
-const GeneratedPattern = ({ pattern, hiddenPattern }) => {
+const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
     const [isRevealed, setIsRevealed] = useState(false);
     return (
         <View style={{flexDirection:'row'}}>
             <Button
                 style={styles.button}
-                onPress={() => Speech.speak(pattern)}
+                onPress={() => Speech.speak(pattern, {rate: talkingSpeed, voice: voice})}
                 title='▶️'
             />
             <Button

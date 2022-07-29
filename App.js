@@ -103,7 +103,11 @@ export default function App() {
       />
       <Text style={styles.title}>Generated patterns:</Text>
       <View style={{flexDirection:'row'}}>
-        <PatternList patterns={generatedPatterns}/>
+        <PatternList 
+          patterns={generatedPatterns}
+          talkingSpeed={talkingSpeed}
+          voice={voice}
+        />
       </View>
     </View>
   )
