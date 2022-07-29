@@ -26,17 +26,25 @@ function stateAftermakingThrow(state, throwToMake) {
     }
   }
   
-  function generateRandomSiteswap(numberOfObjects, maxThrowHeight, throwsToMake, handAcrossToAvoidEmptyHand) {
+  function generateRandomSiteswap(
+    numberOfObjects, 
+    maxThrowHeight, 
+    throwsToMake, 
+    handAcrossToAvoidEmptyHand,
+    goBackToGroundStateWhenDone,
+    ) {
     const groundState = Array(numberOfObjects).fill(1)
     var throwsMade = 0
     var state = groundState.slice()
     var siteswap = []
-    while (throwsMade < throwsToMake || JSON.stringify(state) != JSON.stringify(groundState)) {
+    var allowedToStop = false
+    while (throwsMade < throwsToMake || !allowedToStop) {
       const possibleThrows = validThrows(state, [...Array(maxThrowHeight+1).keys()])
       const chosenThrow = state[1] == 0 && handAcrossToAvoidEmptyHand ? 1 : possibleThrows[Math.floor(Math.random() * possibleThrows.length)]
       throwsMade += 1
       state = stateAftermakingThrow(state, chosenThrow)
       siteswap = siteswap.concat(chosenThrow)
+      var allowedToStop = !goBackToGroundStateWhenDone || JSON.stringify(state) == JSON.stringify(groundState)
     }
     return siteswap
   }

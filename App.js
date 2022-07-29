@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import TalkingButton from './components/TalkingButton';
 import InputAndPrompt from './components/InputAndPrompt';
 import CheckBoxAndPrompt from './components/CheckboxAndPrompt';
 import generateRandomSiteswap from './siteswap/SiteswapUtils';
 import DropdownExample from './components/DropdownExample';
 import * as Speech from 'expo-speech';
+import PatternList from './components/PatternList'
 
 export default function App() {
   const [numberOfObjects, setNumberOfObjects] = useState(3)
@@ -15,6 +16,9 @@ export default function App() {
   const [voices, setVoices] = useState([]);
   const [talkingSpeed, setTalkingSpeed] = useState(1.3);
   const [numberOfThrows, setNumberOfThrows] = useState(20);
+  const [goBackToGroundStateWhenDone, setGoBackToGroundStateWhenDone] = useState(true);
+  const [generatedPatterns, setGeneratedPatterns] = useState([]);
+
 
   useEffect(() => {
     Speech.getAvailableVoicesAsync()
@@ -82,13 +86,24 @@ export default function App() {
           }
         }}
       />
-      <View style={{margin:8}}>
-        <TalkingButton 
-          title='Press me!' 
-          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, numberOfThrows, handAcrossToAvoidEmptyHand).join(' ')}
-          voice={voice}
-          talkingSpeed={talkingSpeed}
-        />
+      <Button 
+        title='Generate pattern'
+        onPress={() => {
+          console.log("Working");
+          const newPattern = generateRandomSiteswap(
+            numberOfObjects, 
+            maxThrow, 
+            numberOfThrows, 
+            handAcrossToAvoidEmptyHand,
+            goBackToGroundStateWhenDone,
+          );
+          console.log(newPattern)
+          setGeneratedPatterns(generatedPatterns.concat([newPattern.join(' ')]))
+        }}
+      />
+      <Text style={styles.title}>Generated patterns:</Text>
+      <View style={{flexDirection:'row'}}>
+        <PatternList patterns={generatedPatterns}/>
       </View>
     </View>
   )
