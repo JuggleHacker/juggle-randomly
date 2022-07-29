@@ -10,11 +10,11 @@ import * as Speech from 'expo-speech';
 export default function App() {
   const [numberOfObjects, setNumberOfObjects] = useState(3)
   const [maxThrow, setMaxThrow] = useState(6)
-  const [siteswap, setSiteswap] = useState([5,3,1])
   const [handAcrossToAvoidEmptyHand, setHandAcrossToAvoidEmptyHand] = useState(true);
   const [voice, setVoice] = useState(null);
   const [voices, setVoices] = useState([]);
   const [talkingSpeed, setTalkingSpeed] = useState(1.3);
+  const [numberOfThrows, setNumberOfThrows] = useState(20);
 
   useEffect(() => {
     Speech.getAvailableVoicesAsync()
@@ -36,7 +36,6 @@ export default function App() {
           const newNumberOfObjects = parseInt(newInput);
           if (!isNaN(newNumberOfObjects)) {
             setNumberOfObjects(parseInt(newNumberOfObjects)); 
-            setSiteswap(generateRandomSiteswap(newNumberOfObjects, maxThrow, 10, handAcrossToAvoidEmptyHand));
           }
         }}
       />
@@ -46,8 +45,17 @@ export default function App() {
         onChange={newInput => {
           const newMaxHeight = parseInt(newInput);
           if (!isNaN(newMaxHeight)) {
-            setMaxThrow(parseInt(newMaxHeight)); 
-            setSiteswap(generateRandomSiteswap(numberOfObjects, newMaxHeight, 10, handAcrossToAvoidEmptyHand));
+            setMaxThrow(parseInt(newMaxHeight));
+          }
+        }}
+      />
+      <InputAndPrompt 
+        prompt='Number of throws:'
+        defaultValue='10'
+        onChange={newInput => {
+          const newNumberOfThrows = parseInt(newInput);
+          if (!isNaN(newNumberOfThrows)) {
+            setNumberOfThrows(parseInt(newNumberOfThrows)); 
           }
         }}
       />
@@ -77,7 +85,7 @@ export default function App() {
       <View style={{margin:8}}>
         <TalkingButton 
           title='Press me!' 
-          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, 10, handAcrossToAvoidEmptyHand).join(' ')}
+          textToSpeak={generateRandomSiteswap(numberOfObjects, maxThrow, numberOfThrows, handAcrossToAvoidEmptyHand).join(' ')}
           voice={voice}
           talkingSpeed={talkingSpeed}
         />
