@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PatternList from './PatternList';
 
-const GeneratedPatterns = ({ active, generatedPatterns, talkingSpeed, voice }) => {
+const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice }) => {
     if (active) {
         return (
             <>
-                <Text style={styles.title}>Generated patterns:</Text>
+                <Text style={styles.title}>{title}</Text>
                 <View style={{flexDirection:'row'}}>
                 <PatternList 
-                    patterns={generatedPatterns}
+                    patterns={patterns}
                     talkingSpeed={talkingSpeed}
                     voice={voice}
                 />
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default GeneratedPatterns;
+export default ListOfPatterns;

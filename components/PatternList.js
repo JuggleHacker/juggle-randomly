@@ -3,11 +3,10 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import GeneratedPattern from './GeneratedPattern';
 
 const PatternList = ({ patterns, talkingSpeed, voice }) => {
-    const maxPatternLenght = Math.max(...patterns.map(pattern => pattern.length))
     const patternsList = patterns.map((pattern, index) =>
         <GeneratedPattern 
-            pattern={pattern+' '.repeat(maxPatternLenght-pattern.length)} 
-            hiddenPattern={'* '.repeat(pattern.length/2 + 1) + ' '.repeat(maxPatternLenght-pattern.length)}
+            pattern={pattern} 
+            hiddenPattern={'* '.repeat(pattern.length)}
             key={index}
             talkingSpeed={talkingSpeed}
             voice={voice}

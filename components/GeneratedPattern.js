@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import { Button, SliderComponent, StyleSheet, Text, View } from 'react-native';
 import * as Speech from 'expo-speech';
 
-const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
+const GeneratedPattern = ({ pattern, talkingSpeed, voice }) => {
     const [isRevealed, setIsRevealed] = useState(false);
+    const patternAsText = pattern.join(' ');
+    const hiddenPattern = '* '.repeat(pattern.length);
     return (
         <View style={{flexDirection:'row'}}>
             <Text
                 style={styles.textButton}
-                onPress={() => Speech.speak(pattern, {rate: talkingSpeed, voice: voice})}
+                onPress={() => Speech.speak(patternAsText, {rate: talkingSpeed, voice: voice})}
             >
                 ▶️
             </Text>
@@ -17,7 +19,7 @@ const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
                 onPress={() => {
                     var timesLeft = 10;
                     while (timesLeft > 0 ) {
-                        Speech.speak(pattern, {rate: talkingSpeed, voice: voice});
+                        Speech.speak(patternAsText, {rate: talkingSpeed, voice: voice});
                         timesLeft -= 1;
                     }
                 }}
@@ -38,7 +40,7 @@ const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
             </Text>
             <Text>    </Text>
             <Text style={styles.text}>
-                {isRevealed ? pattern : hiddenPattern}
+                {isRevealed ? patternAsText : hiddenPattern}
             </Text>
         </View>
     )
