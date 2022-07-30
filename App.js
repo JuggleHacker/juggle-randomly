@@ -120,9 +120,6 @@ export default function App() {
           storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
         }}
       />
-      <Text>
-        You have saved {count} patterns!
-      </Text>
     </View>
   )
 }
