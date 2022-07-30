@@ -17,7 +17,6 @@ export default function App() {
 
   const [count, setCount] = useState(0);
   const storeData = async (value) => {
-    console.log(value);
     try {
       await AsyncStorage.setItem('@count', value)
     } catch (e) {
@@ -37,8 +36,34 @@ export default function App() {
     }
   }
 
+  const storeSavedPatterns = async (value) => {
+    console.log(value);
+    try {
+      await AsyncStorage.setItem('@savedPatterns', value)
+    } catch (e) {
+      console.log(`saving error: ${e}`)
+    }
+  }
+
+  const getSavedPatterns = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@savedPatterns')
+      if(value !== null) {
+        console.log(`Saved patterns : ${value}`)
+        setSavedPatterns(JSON.parse(value))
+      }
+    } catch(e) {
+      console.log(`error reading value: ${e}`)
+    }
+  }
+
   useEffect(() => {
     getData()
+  }, []);
+
+  useEffect(() => {
+    storeSavedPatterns('');
+    getSavedPatterns()
   }, []);
 
   useEffect(() => {
@@ -71,7 +96,12 @@ export default function App() {
         talkingSpeed={talkingSpeed}
         voice={voice}
         alreadySaved={false}
-        savePattern={() => {storeData(parseInt(count)+1); setCount(parseInt(count)+1)}}
+        savePattern={(pattern) => {
+          storeData(parseInt(count)+pattern.length); 
+          setCount(parseInt(count)+pattern.length);
+          storeSavedPatterns(savedPatterns.concat([pattern]));
+          setSavedPatterns(savedPatterns.concat([[pattern]]));
+        }}
       />
       <ListOfPatterns
         title='Saved patterns:'

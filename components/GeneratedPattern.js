@@ -46,7 +46,7 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
             </Text>
             <SaveButton
                 active={!isSaved}
-                save={savePattern}
+                save={() => {console.log(pattern); savePattern(pattern)}}
             />
         </View>
     )
