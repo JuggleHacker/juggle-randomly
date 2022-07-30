@@ -95,7 +95,7 @@ const PatternGenerator = () => {
         />
         <InputAndPrompt 
           prompt='Number of throws:'
-          defaultValue='5'
+          defaultValue='6'
           onChange={newInput => {
             const newNumberOfThrows = parseInt(newInput);
             if (!isNaN(newNumberOfThrows)) {
