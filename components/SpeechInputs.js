@@ -17,7 +17,7 @@ const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices }) => {
                 />
                 <InputAndPrompt 
                     prompt='Talking speed:'
-                    defaultValue='1.3'
+                    defaultValue='1.1'
                     onChange={newInput => {
                     const newTalkingSpeed = parseFloat(newInput);
                     if (!isNaN(newTalkingSpeed)) {

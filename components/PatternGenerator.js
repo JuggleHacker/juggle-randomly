@@ -11,12 +11,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PatternGenerator = () => {
     const [numberOfObjects, setNumberOfObjects] = useState(3)
-    const [maxThrow, setMaxThrow] = useState(6)
+    const [maxThrow, setMaxThrow] = useState(5)
     const [handAcrossToAvoidEmptyHand, setHandAcrossToAvoidEmptyHand] = useState(true);
     const [voice, setVoice] = useState(null);
     const [voices, setVoices] = useState([]);
-    const [talkingSpeed, setTalkingSpeed] = useState(1.3);
-    const [numberOfThrows, setNumberOfThrows] = useState(20);
+    const [talkingSpeed, setTalkingSpeed] = useState(1.1);
+    const [numberOfThrows, setNumberOfThrows] = useState(5);
     const [goBackToGroundStateWhenDone, setGoBackToGroundStateWhenDone] = useState(true);
     const [generatedPatterns, setGeneratedPatterns] = useState([]);
   
@@ -85,7 +85,7 @@ const PatternGenerator = () => {
         />
         <InputAndPrompt 
           prompt='Max throw height:'
-          defaultValue='6'
+          defaultValue='5'
           onChange={newInput => {
             const newMaxHeight = parseInt(newInput);
             if (!isNaN(newMaxHeight)) {
@@ -95,7 +95,7 @@ const PatternGenerator = () => {
         />
         <InputAndPrompt 
           prompt='Number of throws:'
-          defaultValue='10'
+          defaultValue='5'
           onChange={newInput => {
             const newNumberOfThrows = parseInt(newInput);
             if (!isNaN(newNumberOfThrows)) {
