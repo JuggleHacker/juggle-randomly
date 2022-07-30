@@ -30,37 +30,37 @@ const PatternGenerator = () => {
       return
     }, []);
   
-    const [count, setCount] = useState(0);
+    // const [count, setCount] = useState(0);
   
-    const storeData = async (value) => {
-      try {
-        await AsyncStorage.setItem('@count', value)
-      } catch (e) {
-        console.log(`saving error: ${e}`)
-      }
-    }
+    // const storeData = async (value) => {
+    //   try {
+    //     await AsyncStorage.setItem('@count', value)
+    //   } catch (e) {
+    //     console.log(`saving error: ${e}`)
+    //   }
+    // }
   
-    const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('@count')
-        if(value !== null) {
-          setCount(value)
-        }
-      } catch(e) {
-        console.log('error reading value')
-        setCount('0') 
-      }
-    }
+    // const getData = async () => {
+    //   try {
+    //     const value = await AsyncStorage.getItem('@count')
+    //     if(value !== null) {
+    //       setCount(value)
+    //     }
+    //   } catch(e) {
+    //     console.log('error reading value')
+    //     setCount('0') 
+    //   }
+    // }
   
-    useEffect(() => {
-      getData()
-    }, []);
+    // useEffect(() => {
+    //   getData()
+    // }, []);
   
   
     return (
       <View
         style={styles.container}>
-        <Button 
+        {/* <Button 
           title={`You have pressed this button ${count} times!`} 
           onPress={() => {
             const newCount = parseInt(count) + 1;
@@ -71,7 +71,7 @@ const PatternGenerator = () => {
         <Button 
           title='Clear count'
           onPress={() => {setCount(0); storeData(0)}}
-        />
+        /> */}
         <Text style={styles.title}>Cameron's juggling randomiser</Text>
         <InputAndPrompt
           prompt='Number of objects:'
