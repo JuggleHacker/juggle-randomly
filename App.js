@@ -8,6 +8,7 @@ import DropdownExample from './components/DropdownExample';
 import * as Speech from 'expo-speech';
 import PatternList from './components/PatternList'
 import SpeechInputs from './components/SpeechInputs';
+import GeneratedPatterns from './components/GeneratedPatterns';
 
 export default function App() {
   const [numberOfObjects, setNumberOfObjects] = useState(3)
@@ -84,14 +85,12 @@ export default function App() {
           setGeneratedPatterns(generatedPatterns.concat([newPattern.join(' ')]))
         }}
       />
-      <Text style={styles.title}>Generated patterns:</Text>
-      <View style={{flexDirection:'row'}}>
-        <PatternList 
-          patterns={generatedPatterns}
-          talkingSpeed={talkingSpeed}
-          voice={voice}
-        />
-      </View>
+      <GeneratedPatterns
+        active={generatedPatterns.length >0}
+        generatedPatterns={generatedPatterns}
+        talkingSpeed={talkingSpeed}
+        voice={voice}
+      />
       <SpeechInputs
         active={generatedPatterns.length > 0}
         setVoice={setVoice}
