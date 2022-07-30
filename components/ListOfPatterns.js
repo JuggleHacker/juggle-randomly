@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PatternList from './PatternList';
 
-const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice }) => {
+const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePattern, alreadySaved }) => {
     if (active) {
         return (
             <>
@@ -12,6 +12,8 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice }) => {
                     patterns={patterns}
                     talkingSpeed={talkingSpeed}
                     voice={voice}
+                    savePattern={savePattern}
+                    alreadySaved={alreadySaved}
                 />
                 </View>
             </>

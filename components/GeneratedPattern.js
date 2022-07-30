@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import { Button, SliderComponent, StyleSheet, Text, View } from 'react-native';
 import * as Speech from 'expo-speech';
+import SaveButton from './SaveButton';
 
-const GeneratedPattern = ({ pattern, talkingSpeed, voice }) => {
+const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved }) => {
     const [isRevealed, setIsRevealed] = useState(false);
+    const [isSaved, setIsSaved] = useState(alreadySaved);
     const patternAsText = pattern.join(' ');
     const hiddenPattern = '* '.repeat(pattern.length);
     return (
@@ -42,6 +44,10 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice }) => {
             <Text style={styles.text}>
                 {isRevealed ? patternAsText : hiddenPattern}
             </Text>
+            <SaveButton
+                active={!isSaved}
+                save={savePattern}
+            />
         </View>
     )
 }

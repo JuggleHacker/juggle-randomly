@@ -1,17 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import PatternGenerator from './components/PatternGenerator';
 import SavedPatterns from './components/ListOfPatterns';
 import SpeechInput from './components/SpeechInputs';
 import * as Speech from 'expo-speech';
 import ListOfPatterns from './components/ListOfPatterns';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
-  const [savedPatterns, setSavedPatterns] = useState([]);
+
   const [generatedPatterns, setGeneratedPatterns] = useState([]);
   const [voices, setVoices] = useState([]);
   const [voice, setVoice] = useState(null);
   const [talkingSpeed, setTalkingSpeed] = useState(null);
+  const [savedPatterns, setSavedPatterns] = useState([]);
+
+  const [count, setCount] = useState(0);
+  const storeData = async (value) => {
+    console.log(value);
+    try {
+      await AsyncStorage.setItem('@count', value)
+    } catch (e) {
+      console.log(`saving error: ${e}`)
+    }
+  }
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@count')
+      if(value !== null) {
+        setCount(value)
+      }
+    } catch(e) {
+      console.log(`error reading value: ${e}`)
+      setCount(0)
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, []);
 
   useEffect(() => {
     Speech.getAvailableVoicesAsync()
@@ -42,6 +70,8 @@ export default function App() {
         generatedPatterns={generatedPatterns}
         talkingSpeed={talkingSpeed}
         voice={voice}
+        alreadySaved={false}
+        savePattern={() => {storeData(parseInt(count)+1); setCount(parseInt(count)+1)}}
       />
       <ListOfPatterns
         title='Saved patterns:'
@@ -50,7 +80,11 @@ export default function App() {
         savedPatterns={savedPatterns}
         voice={voice}
         talkingSpeed={talkingSpeed}
+        alreadySaved={true}
       />
+      <Text>
+        You have saved {count} patterns!
+      </Text>
     </View>
   )
 }
