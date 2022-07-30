@@ -62,7 +62,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    storeSavedPatterns('');
+    AsyncStorage.getItem('@savedPatterns').then((res) => console.log(res))
+    AsyncStorage.getItem('@count').then((res) => console.log(res))
     getSavedPatterns()
   }, []);
 
@@ -99,8 +100,8 @@ export default function App() {
         savePattern={(pattern) => {
           storeData(parseInt(count)+pattern.length); 
           setCount(parseInt(count)+pattern.length);
-          storeSavedPatterns(savedPatterns.concat([pattern]));
-          setSavedPatterns(savedPatterns.concat([[pattern]]));
+          storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
+          setSavedPatterns(savedPatterns.concat([pattern]));
         }}
       />
       <ListOfPatterns
