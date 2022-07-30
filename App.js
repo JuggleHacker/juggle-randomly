@@ -9,6 +9,7 @@ import * as Speech from 'expo-speech';
 import PatternList from './components/PatternList'
 import SpeechInputs from './components/SpeechInputs';
 import GeneratedPatterns from './components/GeneratedPatterns';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [numberOfObjects, setNumberOfObjects] = useState(3)
@@ -31,9 +32,48 @@ export default function App() {
     return
   }, []);
 
+  const [count, setCount] = useState(0);
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('@count', value)
+    } catch (e) {
+      console.log(`saving error: ${e}`)
+    }
+  }
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@count')
+      if(value !== null) {
+        setCount(value)
+      }
+    } catch(e) {
+      console.log('error reading value')
+      setCount('0') 
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, []);
+
+
   return (
     <View
       style={styles.container}>
+      <Button 
+        title={`You have pressed this button ${count} times!`} 
+        onPress={() => {
+          const newCount = parseInt(count) + 1;
+          setCount(newCount);
+          storeData(newCount)
+        }}
+      />
+      <Button 
+        title='Clear count'
+        onPress={() => {setCount(0); storeData(0)}}
+      />
       <Text style={styles.title}>Cameron's juggling randomiser</Text>
       <InputAndPrompt
         prompt='Number of objects:'
