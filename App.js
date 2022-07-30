@@ -103,6 +103,9 @@ export default function App() {
           storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
           setSavedPatterns(savedPatterns.concat([pattern]));
         }}
+        deletePattern={(index) => {
+          setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
+        }}
       />
       <ListOfPatterns
         title='Saved patterns:'
@@ -112,6 +115,10 @@ export default function App() {
         voice={voice}
         talkingSpeed={talkingSpeed}
         alreadySaved={true}
+        deletePattern={(index) => {
+          setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
+          storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
+        }}
       />
       <Text>
         You have saved {count} patterns!

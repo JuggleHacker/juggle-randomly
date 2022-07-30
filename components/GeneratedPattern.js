@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import { Button, SliderComponent, StyleSheet, Text, View } from 'react-native';
 import * as Speech from 'expo-speech';
 import SaveButton from './SaveButton';
+import DeleteButton from './DeleteButton';
 
-const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved }) => {
+const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern }) => {
     const [isRevealed, setIsRevealed] = useState(false);
     const [isSaved, setIsSaved] = useState(alreadySaved);
     const patternAsText = pattern.join(' ');
@@ -47,6 +48,9 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
             <SaveButton
                 active={!isSaved}
                 save={() => {console.log(pattern); savePattern(pattern)}}
+            />
+            <DeleteButton
+                deletePattern={deletePattern}
             />
         </View>
     )
