@@ -6,13 +6,14 @@ const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
     const [isRevealed, setIsRevealed] = useState(false);
     return (
         <View style={{flexDirection:'row'}}>
-            <Button
-                style={styles.button}
+            <Text
+                style={styles.textButton}
                 onPress={() => Speech.speak(pattern, {rate: talkingSpeed, voice: voice})}
-                title='▶️'
-            />
-            <Button
-                style={styles.button}
+            >
+                ▶️
+            </Text>
+            <Text
+                style={styles.textButton}
                 onPress={() => {
                     var timesLeft = 10;
                     while (timesLeft > 0 ) {
@@ -20,18 +21,21 @@ const GeneratedPattern = ({ pattern, hiddenPattern, talkingSpeed, voice }) => {
                         timesLeft -= 1;
                     }
                 }}
-                title='🔁'
-            />
-            <Button
-                style={styles.button}
+            >
+                🔁
+            </Text>
+            <Text
+                style={styles.textButton}
                 onPress={() => Speech.stop()}
-                title='⏹️'
-            />
-            <Button
-                style={styles.button}
+            >
+                ⏹️
+            </Text>
+            <Text
+                style={styles.textButton}
                 onPress={() => setIsRevealed(!isRevealed)}
-                title='❔'
-            />
+            >
+                🔍
+            </Text>
             <Text>    </Text>
             <Text style={styles.text}>
                 {isRevealed ? pattern : hiddenPattern}
@@ -46,13 +50,14 @@ const styles = StyleSheet.create({
         justifyContent: 'left',
         alignItems:'left'
     },
-    button: {
-      height: 80,
-      width: 80,
-      color: "white",
-      fontSize: 16,
-      alignContent:'right',
-      alignContent:'right'
+    textButton: {
+      fontSize: 24,
+      margin: 0
+    },
+    buttonTitle: {
+        fontSize: 48,
+        height: 80,
+        width: 80,
     },
     container: {
       flex: 1,
