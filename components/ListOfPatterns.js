@@ -6,7 +6,7 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
     if (active) {
         return (
             <>
-                <Text style={styles.title}>{title+numberOfRepetitions}</Text>
+                <Text style={styles.title}></Text>
                 <View style={{flexDirection:'row'}}>
                     <PatternList 
                         patterns={patterns}
