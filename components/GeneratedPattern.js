@@ -4,8 +4,8 @@ import * as Speech from 'expo-speech';
 import SaveButton from './SaveButton';
 import DeleteButton from './DeleteButton';
 
-const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction }) => {
-    const [isRevealed, setIsRevealed] = useState(false);
+const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction, revealed }) => {
+    const [isRevealed, setIsRevealed] = useState(revealed);
     const [isSaved, setIsSaved] = useState(alreadySaved);
     const patternAsText = pattern.join(' ');
     const hiddenPattern = '* '.repeat(pattern.length);
@@ -44,7 +44,7 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
             </Text>
             <Text>    </Text>
             <Text style={styles.text}>
-                {isRevealed ? patternAsText : hiddenPattern}
+                {(revealed || isRevealed) ? patternAsText : hiddenPattern}
             </Text>
             <SaveButton
                 active={!isSaved}

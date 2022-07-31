@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PatternList from './PatternList';
+import CheckBoxAndPrompt from './CheckboxAndPrompt';
 
 const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction }) => {
+    const [revealAll, setRevealAll] = useState(false)
     if (active) {
         return (
             <>
@@ -10,6 +12,7 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
                 <View style={{flexDirection:'row'}}>
                     <PatternList 
                         patterns={patterns}
+                        revealAll={revealAll}
                         talkingSpeed={talkingSpeed}
                         voice={voice}
                         savePattern={savePattern}
@@ -19,6 +22,11 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
                         introduction={introduction}
                     />
                 </View>
+                <CheckBoxAndPrompt
+                        prompt='Reveal all patterns?'
+                        value={revealAll}
+                        onValueChange={() => setRevealAll(!revealAll)}
+                />
             </>
             
         )
