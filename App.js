@@ -15,6 +15,7 @@ export default function App() {
   const [voice, setVoice] = useState(null);
   const [talkingSpeed, setTalkingSpeed] = useState(null);
   const [savedPatterns, setSavedPatterns] = useState([]);
+  const [numberOfRepetitions, setNumberOfRepetitions] = useState(10);
 
   const storeSavedPatterns = async (value) => {
     console.log(value);
@@ -81,6 +82,7 @@ export default function App() {
             talkingSpeed={talkingSpeed}
             voice={voice}
             alreadySaved={false}
+            numberOfRepetitions={numberOfRepetitions}
             savePattern={(pattern) => {
               storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
               setSavedPatterns(savedPatterns.concat([pattern]));
@@ -94,6 +96,7 @@ export default function App() {
             setVoice={setVoice}
             setTalkingSpeed={setTalkingSpeed}
             voices={voices}
+            setNumberOfRepetitions={setNumberOfRepetitions}
           />
         </>  
       : 
@@ -106,6 +109,7 @@ export default function App() {
         voice={voice}
         talkingSpeed={talkingSpeed}
         alreadySaved={true}
+        numberOfRepetitions={numberOfRepetitions}
         deletePattern={(index) => {
           setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
           storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
@@ -116,6 +120,7 @@ export default function App() {
           setVoice={setVoice}
           setTalkingSpeed={setTalkingSpeed}
           voices={voices}
+          setNumberOfRepetitions={setNumberOfRepetitions}
         />
       </>
   }

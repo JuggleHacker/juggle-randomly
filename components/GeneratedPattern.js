@@ -4,7 +4,7 @@ import * as Speech from 'expo-speech';
 import SaveButton from './SaveButton';
 import DeleteButton from './DeleteButton';
 
-const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern }) => {
+const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions }) => {
     const [isRevealed, setIsRevealed] = useState(false);
     const [isSaved, setIsSaved] = useState(alreadySaved);
     const patternAsText = pattern.join(' ');
@@ -20,7 +20,7 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
             <Text
                 style={styles.textButton}
                 onPress={() => {
-                    var timesLeft = 10;
+                    var timesLeft = numberOfRepetitions;
                     while (timesLeft > 0 ) {
                         Speech.speak(patternAsText, {rate: talkingSpeed, voice: voice});
                         timesLeft -= 1;

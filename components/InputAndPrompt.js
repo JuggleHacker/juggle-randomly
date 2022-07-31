@@ -16,7 +16,7 @@ const InputAndPrompt = ({ prompt, defaultValue, onChange }) => {
 const styles = StyleSheet.create({
     container: {
       flexDirection: "row",
-      marginBottom: 20,
+      marginBottom: 2,
     },
     input: {
       alignSelf: "center",
