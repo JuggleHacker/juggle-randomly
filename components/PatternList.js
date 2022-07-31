@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import GeneratedPattern from './GeneratedPattern';
 
-const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions }) => {
+const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction }) => {
     const patternsList = patterns.map((pattern, index) =>
         <GeneratedPattern 
             pattern={pattern} 
@@ -13,7 +13,9 @@ const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved,
             savePattern={savePattern}
             alreadySaved={alreadySaved}
             numberOfRepetitions={numberOfRepetitions}
+            introduction={introduction}
             deletePattern={() => deletePattern(index)}
+            
         />
     );
     return (

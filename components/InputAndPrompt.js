@@ -2,11 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 const InputAndPrompt = ({ prompt, defaultValue, onChange }) => {
+    const calculatedWidth = Math.max(20, defaultValue.length * 7);
     return (
         <View style={styles.container}>
             <Text style={styles.label}>{prompt}</Text>
             <TextInput
-                style={styles.input}
+                style={{
+                  alignSelf: "center",
+                  borderWidth:1,
+                  width:calculatedWidth
+                }}
                 defaultValue={defaultValue}
                 onChangeText={(newText) => onChange(newText)}/>
         </View>

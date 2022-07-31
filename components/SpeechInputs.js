@@ -3,7 +3,7 @@ import { Text} from 'react-native';
 import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
 
-const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices, setNumberOfRepetitions }) => {
+const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction }) => {
     if (active) {
         return (
             <>
@@ -35,7 +35,11 @@ const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices, setNumberOfRe
                     }
                     }}
                 />
-
+                <InputAndPrompt
+                    prompt='Say before pattern:'
+                    defaultValue={introduction}
+                    onChange={newValue => setIntroduction(newValue)}
+                />
             </>
         )
     } else {
