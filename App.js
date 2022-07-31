@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import PatternGenerator from './components/PatternGenerator';
 import SavedPatterns from './components/ListOfPatterns';
 import SpeechInput from './components/SpeechInputs';
@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function App() {
 
   const [generatedPatterns, setGeneratedPatterns] = useState([]);
+  const [generatingPatterns, setGeneratingPatterns] = useState(true);
   const [voices, setVoices] = useState([]);
   const [voice, setVoice] = useState(null);
   const [talkingSpeed, setTalkingSpeed] = useState(null);
@@ -48,37 +49,60 @@ export default function App() {
       })
     return
   }, []);
-
   return (
     <View style={styles.container}>
-      <PatternGenerator 
-        voice={voice}
-        talkingSpeed={talkingSpeed}
-        onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
-      />
-      <SpeechInput
-        active={generatedPatterns.length > 0 || savedPatterns.length > 0}
-        setVoice={setVoice}
-        setTalkingSpeed={setTalkingSpeed}
-        voices={voices}
-      />
-      <ListOfPatterns
-        title='Generated patterns:'
-        patterns={generatedPatterns}
-        active={generatedPatterns.length > 0}
-        generatedPatterns={generatedPatterns}
-        talkingSpeed={talkingSpeed}
-        voice={voice}
-        alreadySaved={false}
-        savePattern={(pattern) => {
-          storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
-          setSavedPatterns(savedPatterns.concat([pattern]));
-        }}
-        deletePattern={(index) => {
-          setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
-        }}
-      />
-      <ListOfPatterns
+      <Text style={styles.title}>Cameron's juggling randomiser</Text>
+      <View style={styles.rowContainer}>
+        <Button 
+          title='Generate patterns'
+          disabled={generatingPatterns}
+          onPress={() => setGeneratingPatterns(true)}
+        />
+        <Button 
+          title='Saved patterns'
+          disabled={!generatingPatterns}
+          onPress={() => setGeneratingPatterns(false)}
+        />
+      </View>
+      {generatingPatterns ? 
+        <>
+          <PatternGenerator 
+            voice={voice}
+            talkingSpeed={talkingSpeed}
+            onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
+          />
+          <SpeechInput
+            active={generatedPatterns.length > 0 || savedPatterns.length > 0}
+            setVoice={setVoice}
+            setTalkingSpeed={setTalkingSpeed}
+            voices={voices}
+          />
+          <ListOfPatterns
+            title='Generated patterns:'
+            patterns={generatedPatterns}
+            active={generatedPatterns.length > 0}
+            generatedPatterns={generatedPatterns}
+            talkingSpeed={talkingSpeed}
+            voice={voice}
+            alreadySaved={false}
+            savePattern={(pattern) => {
+              storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
+              setSavedPatterns(savedPatterns.concat([pattern]));
+            }}
+            deletePattern={(index) => {
+              setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
+            }}
+          />
+        </>  
+      : 
+      <>
+        <SpeechInput
+          active={generatedPatterns.length > 0 || savedPatterns.length > 0}
+          setVoice={setVoice}
+          setTalkingSpeed={setTalkingSpeed}
+          voices={voices}
+        />
+        <ListOfPatterns
         title='Saved patterns:'
         patterns={savedPatterns}
         active={savedPatterns.length > 0}
@@ -91,6 +115,8 @@ export default function App() {
           storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
         }}
       />
+      </>
+  }
     </View>
   )
 }
@@ -107,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  checkboxContainer: {
+  rowContainer: {
     flexDirection: "row",
     marginBottom: 20,
   },

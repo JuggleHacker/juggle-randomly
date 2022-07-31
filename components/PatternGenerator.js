@@ -14,7 +14,6 @@ const PatternGenerator = ({ onGeneratedNewPattern }) => {
     
     return (
       <>
-        <Text style={styles.title}>Cameron's juggling randomiser</Text>
         <InputAndPrompt
           prompt='Number of objects:'
           defaultValue='3'
