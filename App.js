@@ -52,30 +52,26 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cameron's juggling randomiser</Text>
-      <View style={styles.rowContainer}>
-        <Button 
-          title='Generate patterns'
-          disabled={generatingPatterns}
-          onPress={() => setGeneratingPatterns(true)}
-        />
-        <Button 
-          title='Saved patterns'
-          disabled={!generatingPatterns}
-          onPress={() => setGeneratingPatterns(false)}
-        />
-      </View>
+      {(!generatingPatterns || savedPatterns.length > 0)  &&
+        <View style={styles.rowContainer}>
+          <Button 
+            title='Generate patterns'
+            disabled={generatingPatterns}
+            onPress={() => setGeneratingPatterns(true)}
+          />
+          <Button 
+            title='Saved patterns'
+            disabled={!generatingPatterns}
+            onPress={() => setGeneratingPatterns(false)}
+          />
+        </View>
+      }
       {generatingPatterns ? 
         <>
           <PatternGenerator 
             voice={voice}
             talkingSpeed={talkingSpeed}
             onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
-          />
-          <SpeechInput
-            active={generatedPatterns.length > 0 || savedPatterns.length > 0}
-            setVoice={setVoice}
-            setTalkingSpeed={setTalkingSpeed}
-            voices={voices}
           />
           <ListOfPatterns
             title='Generated patterns:'
@@ -93,15 +89,15 @@ export default function App() {
               setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
             }}
           />
+          <SpeechInput
+            active={generatedPatterns.length > 0}
+            setVoice={setVoice}
+            setTalkingSpeed={setTalkingSpeed}
+            voices={voices}
+          />
         </>  
       : 
       <>
-        <SpeechInput
-          active={generatedPatterns.length > 0 || savedPatterns.length > 0}
-          setVoice={setVoice}
-          setTalkingSpeed={setTalkingSpeed}
-          voices={voices}
-        />
         <ListOfPatterns
         title='Saved patterns:'
         patterns={savedPatterns}
@@ -114,7 +110,13 @@ export default function App() {
           setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
           storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
         }}
-      />
+        />
+        <SpeechInput
+          active={savedPatterns.length > 0}
+          setVoice={setVoice}
+          setTalkingSpeed={setTalkingSpeed}
+          voices={voices}
+        />
       </>
   }
     </View>
