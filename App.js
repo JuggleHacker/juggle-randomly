@@ -15,27 +15,6 @@ export default function App() {
   const [talkingSpeed, setTalkingSpeed] = useState(null);
   const [savedPatterns, setSavedPatterns] = useState([]);
 
-  const [count, setCount] = useState(0);
-  const storeData = async (value) => {
-    try {
-      await AsyncStorage.setItem('@count', value)
-    } catch (e) {
-      console.log(`saving error: ${e}`)
-    }
-  }
-
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@count')
-      if(value !== null) {
-        setCount(value)
-      }
-    } catch(e) {
-      console.log(`error reading value: ${e}`)
-      setCount(0)
-    }
-  }
-
   const storeSavedPatterns = async (value) => {
     console.log(value);
     try {
@@ -58,12 +37,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    getData()
-  }, []);
-
-  useEffect(() => {
-    AsyncStorage.getItem('@savedPatterns').then((res) => console.log(res))
-    AsyncStorage.getItem('@count').then((res) => console.log(res))
     getSavedPatterns()
   }, []);
 
@@ -98,8 +71,6 @@ export default function App() {
         voice={voice}
         alreadySaved={false}
         savePattern={(pattern) => {
-          storeData(parseInt(count)+pattern.length); 
-          setCount(parseInt(count)+pattern.length);
           storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
           setSavedPatterns(savedPatterns.concat([pattern]));
         }}
