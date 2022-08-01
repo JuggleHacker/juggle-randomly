@@ -146,6 +146,7 @@ export default function App() {
             width: 500
           }}
         >
+        { savedPatterns.length > 0 ?
           <ListOfPatterns
             title='Saved patterns:'
             patterns={savedPatterns}
@@ -161,6 +162,12 @@ export default function App() {
               storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
             }}
           />
+          :
+          <Text style={styles.title}>
+            Save some patterns you have generated to see them here!
+          </Text>
+        }
+          
         </View>
       </View>
     )
