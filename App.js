@@ -17,6 +17,7 @@ export default function App() {
   const [savedPatterns, setSavedPatterns] = useState([]);
   const [numberOfRepetitions, setNumberOfRepetitions] = useState(10);
   const [introduction, setIntroduction] = useState('Ready, steady, go!');
+  const [height, setHeight] = useState(100)
 
   const storeSavedPatterns = async (value) => {
     console.log(value);
@@ -53,7 +54,7 @@ export default function App() {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cameron's juggling randomiser</Text>
+
       {(!generatingPatterns || savedPatterns.length > 0)  &&
         <View style={styles.rowContainer}>
           <Button 
@@ -73,7 +74,19 @@ export default function App() {
           <PatternGenerator 
             voice={voice}
             talkingSpeed={talkingSpeed}
-            onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
+            onGeneratedNewPattern={(newPattern) => {
+              setHeight(height + 100);
+              setGeneratedPatterns(generatedPatterns.concat([newPattern]))
+            }}
+          />
+          <SpeechInput
+            active={generatedPatterns.length > 0}
+            setVoice={setVoice}
+            setTalkingSpeed={setTalkingSpeed}
+            voices={voices}
+            setNumberOfRepetitions={setNumberOfRepetitions}
+            introduction={introduction}
+            setIntroduction={setIntroduction}
           />
           <ListOfPatterns
             title='Generated patterns:'
@@ -93,15 +106,7 @@ export default function App() {
               setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
             }}
           />
-          <SpeechInput
-            active={generatedPatterns.length > 0}
-            setVoice={setVoice}
-            setTalkingSpeed={setTalkingSpeed}
-            voices={voices}
-            setNumberOfRepetitions={setNumberOfRepetitions}
-            introduction={introduction}
-            setIntroduction={setIntroduction}
-          />
+
         </>  
       : 
       <>

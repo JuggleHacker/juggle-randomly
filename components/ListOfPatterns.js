@@ -7,7 +7,15 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
     const [revealAll, setRevealAll] = useState(false)
     if (active) {
         return (
-            <>
+            <View
+                style={{
+                    flex: 0.3,
+                    borderLeftWidth: 5,
+                    borderRightWidth: 5,
+                    borderTopWidth: 5,
+                    width: 500
+                  }}
+            >
                 <Text style={styles.title}>{title}</Text>
                 <View style={{flexDirection:'row'}}>
                     <PatternList 
@@ -27,7 +35,7 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
                         value={revealAll}
                         onValueChange={() => setRevealAll(!revealAll)}
                 />
-            </>
+            </View>
             
         )
     } else {

@@ -1,12 +1,18 @@
 import React from 'react';
-import { Text} from 'react-native';
+import { Text, View} from 'react-native';
 import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
 
 const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction }) => {
     if (active) {
         return (
-            <>
+            <View
+                style={{
+                    flex: 0.3,
+                    borderWidth: 5,
+                    width: 500,
+                  }}
+            >
                 <Text style={{margin: 8}}>Language:</Text>
                 <DropdownExample
                     style={{margin: 100}}
@@ -40,7 +46,7 @@ const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices, setNumberOfRe
                     defaultValue={introduction}
                     onChange={newValue => setIntroduction(newValue)}
                 />
-            </>
+            </View>
         )
     } else {
         return (
