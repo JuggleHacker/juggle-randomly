@@ -17,6 +17,11 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
                   }}
             >
                 <Text style={styles.title}>{title}</Text>
+                <CheckBoxAndPrompt
+                        prompt='Reveal all patterns?'
+                        value={revealAll}
+                        onValueChange={() => setRevealAll(!revealAll)}
+                />
                 <View style={{flexDirection:'row'}}>
                     <PatternList 
                         patterns={patterns}
@@ -30,11 +35,6 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
                         introduction={introduction}
                     />
                 </View>
-                <CheckBoxAndPrompt
-                        prompt='Reveal all patterns?'
-                        value={revealAll}
-                        onValueChange={() => setRevealAll(!revealAll)}
-                />
             </View>
             
         )

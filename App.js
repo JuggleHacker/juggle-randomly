@@ -132,7 +132,6 @@ export default function App() {
           currentTab={activeTab}
           onTabChange={setActiveTab}
         />
-        <Text>{`Generating patterns? ${generatedPatterns}`}</Text>
         <ListOfPatterns
           title='Saved patterns:'
           patterns={savedPatterns}
