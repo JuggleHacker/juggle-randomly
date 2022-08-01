@@ -16,11 +16,10 @@ const PatternGenerator = ({ onGeneratedNewPattern }) => {
     return (
       <View
         style={{
-          flex: 0.239,
           borderWidth: 5,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
+          borderRadius: 20,
           width: 500,
+          height: 250,
         }}
       >
         <Text

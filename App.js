@@ -87,24 +87,32 @@ export default function App() {
             talkingSpeed={talkingSpeed}
             onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
         />
-        <ListOfPatterns
-          title='Generated patterns:'
-          patterns={generatedPatterns}
-          active={generatedPatterns.length > 0}
-          generatedPatterns={generatedPatterns}
-          talkingSpeed={talkingSpeed}
-          voice={voice}
-          alreadySaved={false}
-          introduction={introduction}
-          numberOfRepetitions={numberOfRepetitions}
-          savePattern={(pattern) => {
-            storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
-            setSavedPatterns(savedPatterns.concat([pattern]));
+        <View
+          style={{
+            borderWidth: 5,
+            borderRadius: 20,
+            width: 500
           }}
-          deletePattern={(index) => {
-            setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
-          }}
-        />
+        >
+          <ListOfPatterns
+            title='Generated patterns:'
+            patterns={generatedPatterns}
+            active={generatedPatterns.length > 0}
+            generatedPatterns={generatedPatterns}
+            talkingSpeed={talkingSpeed}
+            voice={voice}
+            alreadySaved={false}
+            introduction={introduction}
+            numberOfRepetitions={numberOfRepetitions}
+            savePattern={(pattern) => {
+              storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
+              setSavedPatterns(savedPatterns.concat([pattern]));
+            }}
+            deletePattern={(index) => {
+              setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
+            }}
+          />
+        </View>
     </View>  
     )
   } else if (activeTab == 'speechSettings') {
