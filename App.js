@@ -131,21 +131,29 @@ export default function App() {
           currentTab={activeTab}
           onTabChange={setActiveTab}
         />
-        <ListOfPatterns
-          title='Saved patterns:'
-          patterns={savedPatterns}
-          active={savedPatterns.length > 0}
-          savedPatterns={savedPatterns}
-          voice={voice}
-          talkingSpeed={talkingSpeed}
-          alreadySaved={true}
-          introduction={introduction}
-          numberOfRepetitions={numberOfRepetitions}
-          deletePattern={(index) => {
-            setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
-            storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
+        <View
+          style={{
+            borderWidth: 5,
+            borderRadius: 20,
+            width: 500
           }}
-        />
+        >
+          <ListOfPatterns
+            title='Saved patterns:'
+            patterns={savedPatterns}
+            active={savedPatterns.length > 0}
+            savedPatterns={savedPatterns}
+            voice={voice}
+            talkingSpeed={talkingSpeed}
+            alreadySaved={true}
+            introduction={introduction}
+            numberOfRepetitions={numberOfRepetitions}
+            deletePattern={(index) => {
+              setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
+              storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
+            }}
+          />
+        </View>
       </View>
     )
   }
