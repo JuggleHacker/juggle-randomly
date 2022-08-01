@@ -115,7 +115,6 @@ export default function App() {
           onTabChange={setActiveTab}
         />
         <SpeechInput
-            active={generatedPatterns.length > 0}
             setVoice={setVoice}
             setTalkingSpeed={setTalkingSpeed}
             voices={voices}
