@@ -4,13 +4,21 @@ import * as Speech from 'expo-speech';
 import SaveButton from './SaveButton';
 import DeleteButton from './DeleteButton';
 
-const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction, revealed }) => {
+const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction, revealed, numberInList }) => {
     const [isRevealed, setIsRevealed] = useState(revealed);
     const [isSaved, setIsSaved] = useState(alreadySaved);
     const patternAsText = pattern.join(' ');
     const hiddenPattern = '* '.repeat(pattern.length);
     return (
         <View style={{flexDirection:'row'}}>
+            <Text
+                style={{
+                    marginRight:16,
+                    fontSize:24,
+                    justifyContent: 'bottom',
+                    alignItems:'right'
+                }}
+            >{numberInList}</Text>
             <Text
                 style={styles.textButton}
                 onPress={() => Speech.speak(introduction + patternAsText, {rate: talkingSpeed, voice: voice})}

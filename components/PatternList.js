@@ -10,6 +10,7 @@ const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved,
             revealed={revealAll}
             hiddenPattern={'* '.repeat(pattern.length)}
             key={index}
+            numberInList={index+1}
             talkingSpeed={talkingSpeed}
             voice={voice}
             savePattern={savePattern}
