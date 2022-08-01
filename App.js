@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function App() {
 
   const [generatedPatterns, setGeneratedPatterns] = useState([]);
-  const [generatingPatterns, setGeneratingPatterns] = useState(true);
+  const [activeTab, setActiveTab] = useState('generating');
   const [voices, setVoices] = useState([]);
   const [voice, setVoice] = useState(null);
   const [talkingSpeed, setTalkingSpeed] = useState(null);
@@ -18,6 +18,28 @@ export default function App() {
   const [numberOfRepetitions, setNumberOfRepetitions] = useState(10);
   const [introduction, setIntroduction] = useState('Ready, steady, go!');
   const [height, setHeight] = useState(100)
+
+  const NavigationButtons = ({ currentTab, onTabChange }) => {
+    return (
+      <View style={styles.rowContainer}>
+          <Button 
+            title='Generate patterns'
+            disabled={currentTab == 'generating'}
+            onPress={() => onTabChange('generating')}
+          />
+          <Button 
+            title='Saved patterns'
+            disabled={currentTab == 'savedPatterns'}
+            onPress={() => onTabChange('savedPatterns')}
+          />
+          <Button
+            title='Speech settings'
+            disabled={currentTab == 'speechSettings'}
+            onPress={() => onTabChange('speechSettings')}
+          />
+        </View>
+    )
+  }
 
   const storeSavedPatterns = async (value) => {
     console.log(value);
@@ -52,34 +74,47 @@ export default function App() {
       })
     return
   }, []);
-  return (
-    <View style={styles.container}>
 
-      {(!generatingPatterns || savedPatterns.length > 0)  &&
-        <View style={styles.rowContainer}>
-          <Button 
-            title='Generate patterns'
-            disabled={generatingPatterns}
-            onPress={() => setGeneratingPatterns(true)}
-          />
-          <Button 
-            title='Saved patterns'
-            disabled={!generatingPatterns}
-            onPress={() => setGeneratingPatterns(false)}
-          />
-        </View>
-      }
-      {generatingPatterns ? 
-        <>
-          <PatternGenerator 
+  if (activeTab == 'generating') {
+    return (
+      <View style={styles.container}>
+        <NavigationButtons
+          currentTab={activeTab}
+          onTabChange={setActiveTab}
+        />
+        <PatternGenerator 
             voice={voice}
             talkingSpeed={talkingSpeed}
-            onGeneratedNewPattern={(newPattern) => {
-              setHeight(height + 100);
-              setGeneratedPatterns(generatedPatterns.concat([newPattern]))
-            }}
-          />
-          <SpeechInput
+            onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
+        />
+        <ListOfPatterns
+          title='Generated patterns:'
+          patterns={generatedPatterns}
+          active={generatedPatterns.length > 0}
+          generatedPatterns={generatedPatterns}
+          talkingSpeed={talkingSpeed}
+          voice={voice}
+          alreadySaved={false}
+          introduction={introduction}
+          numberOfRepetitions={numberOfRepetitions}
+          savePattern={(pattern) => {
+            storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
+            setSavedPatterns(savedPatterns.concat([pattern]));
+          }}
+          deletePattern={(index) => {
+            setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
+          }}
+        />
+    </View>  
+    )
+  } else if (activeTab == 'speechSettings') {
+    return (
+      <View style={styles.container}>
+        <NavigationButtons
+          currentTab={activeTab}
+          onTabChange={setActiveTab}
+        />
+        <SpeechInput
             active={generatedPatterns.length > 0}
             setVoice={setVoice}
             setTalkingSpeed={setTalkingSpeed}
@@ -87,59 +122,36 @@ export default function App() {
             setNumberOfRepetitions={setNumberOfRepetitions}
             introduction={introduction}
             setIntroduction={setIntroduction}
-          />
-          <ListOfPatterns
-            title='Generated patterns:'
-            patterns={generatedPatterns}
-            active={generatedPatterns.length > 0}
-            generatedPatterns={generatedPatterns}
-            talkingSpeed={talkingSpeed}
-            voice={voice}
-            alreadySaved={false}
-            introduction={introduction}
-            numberOfRepetitions={numberOfRepetitions}
-            savePattern={(pattern) => {
-              storeSavedPatterns(JSON.stringify(savedPatterns.concat([pattern])));
-              setSavedPatterns(savedPatterns.concat([pattern]));
-            }}
-            deletePattern={(index) => {
-              setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
-            }}
-          />
-
-        </>  
-      : 
-      <>
+        />
+      </View>
+    )
+  } else if (activeTab == 'savedPatterns') {
+    return (
+      <View style={styles.container}>
+        <NavigationButtons
+          currentTab={activeTab}
+          onTabChange={setActiveTab}
+        />
+        <Text>{`Generating patterns? ${generatedPatterns}`}</Text>
         <ListOfPatterns
-        title='Saved patterns:'
-        patterns={savedPatterns}
-        active={savedPatterns.length > 0}
-        savedPatterns={savedPatterns}
-        voice={voice}
-        talkingSpeed={talkingSpeed}
-        alreadySaved={true}
-        introduction={introduction}
-        numberOfRepetitions={numberOfRepetitions}
-        deletePattern={(index) => {
-          setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
-          storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
-        }}
-        />
-        <SpeechInput
+          title='Saved patterns:'
+          patterns={savedPatterns}
           active={savedPatterns.length > 0}
-          setVoice={setVoice}
-          setTalkingSpeed={setTalkingSpeed}
-          voices={voices}
-          setNumberOfRepetitions={setNumberOfRepetitions}
+          savedPatterns={savedPatterns}
+          voice={voice}
+          talkingSpeed={talkingSpeed}
+          alreadySaved={true}
           introduction={introduction}
-          setIntroduction={setIntroduction}
+          numberOfRepetitions={numberOfRepetitions}
+          deletePattern={(index) => {
+            setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
+            storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
+          }}
         />
-      </>
+      </View>
+    )
   }
-    </View>
-  )
 }
-
   
 const styles = StyleSheet.create({
   title: {

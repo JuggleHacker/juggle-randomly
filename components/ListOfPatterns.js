@@ -13,7 +13,7 @@ const ListOfPatterns = ({ title, active, patterns, talkingSpeed, voice, savePatt
                     borderLeftWidth: 5,
                     borderRightWidth: 5,
                     borderTopWidth: 5,
-                    width: 500
+                    width: 500,
                   }}
             >
                 <Text style={styles.title}>{title}</Text>

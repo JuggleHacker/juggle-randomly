@@ -8,11 +8,20 @@ const SpeechInputs = ({ active, setVoice, setTalkingSpeed, voices, setNumberOfRe
         return (
             <View
                 style={{
-                    flex: 0.3,
+                    flex: 0.4,
                     borderWidth: 5,
                     width: 500,
                   }}
             >
+                <Text
+                    style={{
+                        margin: 8,
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    }}
+                >
+                    Speech inputs
+                </Text>
                 <Text style={{margin: 8}}>Language:</Text>
                 <DropdownExample
                     style={{margin: 100}}
