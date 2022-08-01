@@ -56,7 +56,8 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
             </Text>
             <SaveButton
                 active={!isSaved}
-                save={() => {console.log(pattern); savePattern(pattern)}}
+                save={() => savePattern(pattern)}
+                disableAfterSave={true}
             />
             <DeleteButton
                 deletePattern={deletePattern}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View} from 'react-native';
 import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
+import SaveButton from './SaveButton';
 
 const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction }) => {
     return (
@@ -49,11 +50,20 @@ const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetition
                 }
                 }}
             />
-            <InputAndPrompt
-                prompt='Say before pattern:'
-                defaultValue={introduction}
-                onChange={newValue => setIntroduction(newValue)}
-            />
+            <View 
+                style={{flexDirection:'row'}}
+            >
+                <InputAndPrompt
+                    prompt='Say before pattern:'
+                    defaultValue={introduction}
+                    onChange={newValue => setIntroduction(newValue)}
+                />
+                <SaveButton 
+                    active={true}
+                    save={() => console.log('Saving intro!')}
+                    disableAfterSave={false}
+                />
+            </View>
         </View>
     )
 }
