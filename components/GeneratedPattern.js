@@ -48,7 +48,7 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
                 style={styles.textButton}
                 onPress={() => setIsRevealed(!isRevealed)}
             >
-                🔍
+                👀
             </Text>
             <Text>    </Text>
             <Text style={styles.text}>

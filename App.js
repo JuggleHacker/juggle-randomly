@@ -163,6 +163,7 @@ export default function App() {
             introduction={introduction}
             setIntroduction={setIntroduction}
             saveIntroduction={storeIntroduction}
+            placeholderVoice={voice ?? voices[0]}
         />
       </View>
     )

@@ -4,7 +4,7 @@ import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
 import SaveButton from './SaveButton';
 
-const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction }) => {
+const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction, placeholderVoice }) => {
     return (
         <View
             style={{
@@ -28,7 +28,7 @@ const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetition
                 data={voices.map(voice => voice.identifier)}
                 setSelected={setVoice} 
                 prompt='Voice/language:'
-                placeholder={voices[0]?.identifier || "Choose voice"}
+                placeholder={placeholderVoice}
             />
             <InputAndPrompt 
                 prompt='Repititions when looping:'
