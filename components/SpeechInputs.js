@@ -4,7 +4,7 @@ import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
 import SaveButton from './SaveButton';
 
-const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction }) => {
+const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction }) => {
     return (
         <View
             style={{
@@ -60,7 +60,7 @@ const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetition
                 />
                 <SaveButton 
                     active={true}
-                    save={() => console.log('Saving intro!')}
+                    save={() => saveIntroduction(introduction)}
                     disableAfterSave={false}
                 />
             </View>

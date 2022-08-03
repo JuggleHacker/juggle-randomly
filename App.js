@@ -17,7 +17,6 @@ export default function App() {
   const [savedPatterns, setSavedPatterns] = useState([]);
   const [numberOfRepetitions, setNumberOfRepetitions] = useState(10);
   const [introduction, setIntroduction] = useState('Ready, steady, go!');
-  const [height, setHeight] = useState(100)
 
   const NavigationButtons = ({ currentTab, onTabChange }) => {
     return (
@@ -62,8 +61,33 @@ export default function App() {
     }
   }
 
+  const storeIntroduction = async (value) => {
+    try {
+      console.log(`Storing ${value}`)
+      await AsyncStorage.setItem('@introduction', value)
+    } catch (e) {
+      console.log(`saving error: ${e}`)
+    }
+  }
+
+  const getIntroduction = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@introduction')
+      if(value !== null) {
+        console.log(value)
+        setIntroduction(value)
+      }
+    } catch(e) {
+      console.log(`error reading value: ${e}`)
+    }
+  }
+
   useEffect(() => {
     getSavedPatterns()
+  }, []);
+
+  useEffect(() => {
+    getIntroduction()
   }, []);
 
   useEffect(() => {
@@ -112,6 +136,7 @@ export default function App() {
               deletePattern={(index) => {
                 setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
               }}
+              deleteAllPatterns={() => setGeneratedPatterns([])}
             />
           </View>
           :
@@ -133,6 +158,7 @@ export default function App() {
             setNumberOfRepetitions={setNumberOfRepetitions}
             introduction={introduction}
             setIntroduction={setIntroduction}
+            saveIntroduction={storeIntroduction}
         />
       </View>
     )
@@ -164,6 +190,10 @@ export default function App() {
             deletePattern={(index) => {
               setSavedPatterns(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1)))
               storeSavedPatterns(JSON.stringify(savedPatterns.slice(0,index).concat(savedPatterns.slice(index+1))));
+            }}
+            deleteAllPatterns={() => {
+              setSavedPatterns([])
+              storeSavedPatterns(JSON.stringify([]))
             }}
           />
           :

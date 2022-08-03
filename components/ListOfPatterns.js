@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PatternList from './PatternList';
 import CheckBoxAndPrompt from './CheckboxAndPrompt';
+import DeleteButton from './DeleteButton';
 
-const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction }) => {
+const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, deleteAllPatterns, numberOfRepetitions, introduction }) => {
     const [revealAll, setRevealAll] = useState(false)
     return (
         <>
@@ -13,6 +14,10 @@ const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alr
                     value={revealAll}
                     onValueChange={() => setRevealAll(!revealAll)}
             />
+            <View style={{flexDirection:'row'}}>
+                <Text style={{margin:8}}>Delete all patterns: </Text>
+                <DeleteButton deletePattern={deleteAllPatterns} />
+            </View>
             <View style={{flexDirection:'row'}}>
                 <PatternList 
                     patterns={patterns}
