@@ -17,6 +17,7 @@ export default function App() {
   const [savedPatterns, setSavedPatterns] = useState([]);
   const [numberOfRepetitions, setNumberOfRepetitions] = useState(10);
   const [introduction, setIntroduction] = useState('Ready, steady, go!');
+  const [pauseBetweenLoops, setPauseBetweenLoops] = useState(true);
 
   const NavigationButtons = ({ currentTab, onTabChange }) => {
     return (
@@ -141,6 +142,7 @@ export default function App() {
                 setGeneratedPatterns(generatedPatterns.slice(0,index).concat(generatedPatterns.slice(index+1)))
               }}
               deleteAllPatterns={() => setGeneratedPatterns([])}
+              pauseBetweenLoops={pauseBetweenLoops}
             />
           </View>
           :
@@ -164,6 +166,8 @@ export default function App() {
             setIntroduction={setIntroduction}
             saveIntroduction={storeIntroduction}
             placeholderVoice={voice ?? voices[0]}
+            pauseBetweenLoops={pauseBetweenLoops}
+            setPauseBetweenLoops={setPauseBetweenLoops}
         />
       </View>
     )
@@ -200,6 +204,7 @@ export default function App() {
               setSavedPatterns([])
               storeSavedPatterns(JSON.stringify([]))
             }}
+            pauseBetweenLoops={pauseBetweenLoops}
           />
           :
           <Text style={styles.title}>

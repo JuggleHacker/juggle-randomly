@@ -1,8 +1,9 @@
+import { pause } from 'expo-speech';
 import React, {useState} from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import GeneratedPattern from './GeneratedPattern';
 
-const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction, revealAll }) => {
+const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, numberOfRepetitions, introduction, revealAll, pauseBetweenLoops }) => {
     
     const patternsList = patterns.map((pattern, index) =>
         <GeneratedPattern 
@@ -18,6 +19,7 @@ const PatternList = ({ patterns, talkingSpeed, voice, savePattern, alreadySaved,
             numberOfRepetitions={numberOfRepetitions}
             introduction={introduction}
             deletePattern={() => deletePattern(index)}
+            pauseBetweenLoops={pauseBetweenLoops}
             
         />
     );

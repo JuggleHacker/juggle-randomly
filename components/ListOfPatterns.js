@@ -4,7 +4,7 @@ import PatternList from './PatternList';
 import CheckBoxAndPrompt from './CheckboxAndPrompt';
 import DeleteButton from './DeleteButton';
 
-const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, deleteAllPatterns, numberOfRepetitions, introduction }) => {
+const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alreadySaved, deletePattern, deleteAllPatterns, numberOfRepetitions, introduction, pauseBetweenLoops }) => {
     const [revealAll, setRevealAll] = useState(false)
     return (
         <>
@@ -29,6 +29,7 @@ const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alr
                     deletePattern={deletePattern}
                     numberOfRepetitions={numberOfRepetitions}
                     introduction={introduction}
+                    pauseBetweenLoops={pauseBetweenLoops}
                 />
             </View>
         </>

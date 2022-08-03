@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Text, View} from 'react-native';
+import CheckBoxAndPrompt from './CheckboxAndPrompt';
 import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
 import SaveButton from './SaveButton';
 
-const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction, placeholderVoice }) => {
+const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction, placeholderVoice, pauseBetweenLoops, setPauseBetweenLoops }) => {
     return (
         <View
             style={{
@@ -39,6 +40,11 @@ const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetition
                     setNumberOfRepetitions(newRepititions); 
                 }
                 }}
+            />
+            <CheckBoxAndPrompt
+                prompt='Pause briefly between loops?'
+                value={pauseBetweenLoops}
+                onValueChange={setPauseBetweenLoops}
             />
             <InputAndPrompt 
                 prompt='Talking speed:'
