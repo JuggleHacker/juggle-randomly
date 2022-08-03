@@ -13,7 +13,7 @@ const SaveButton = ({active, save, disableAfterSave}) => {
         )
     } else {
         return (
-            <></>
+            <Text style={{fontSize: 24}}>✔️</Text>
         )
     }
 }
