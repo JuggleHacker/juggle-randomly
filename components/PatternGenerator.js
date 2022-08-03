@@ -7,10 +7,8 @@ import generateRandomSiteswap from '../siteswap/SiteswapUtils';
 const PatternGenerator = ({ onGeneratedNewPattern }) => {
     const [numberOfObjects, setNumberOfObjects] = useState(3)
     const [maxThrow, setMaxThrow] = useState(5)
-    const [handAcrossToAvoidEmptyHand, setHandAcrossToAvoidEmptyHand] = useState(true);
+    const [allowEmptyHands, setAllowEmptyHands] = useState(false);
     const [numberOfThrows, setNumberOfThrows] = useState(5);
-    const [goBackToGroundStateWhenDone, setGoBackToGroundStateWhenDone] = useState(true);
-    const [generatedPatterns, setGeneratedPatterns] = useState([]);
     const [value, setValue] = useState(0)
     
     return (
@@ -62,9 +60,9 @@ const PatternGenerator = ({ onGeneratedNewPattern }) => {
           }}
         />
         <CheckBoxAndPrompt 
-          prompt='Hand across to avoid empty hand?'
-          value={handAcrossToAvoidEmptyHand}
-          onValueChange={setHandAcrossToAvoidEmptyHand}
+          prompt='Allow empty hands?'
+          value={allowEmptyHands}
+          onValueChange={setAllowEmptyHands}
         />
         <Button
           title='Generate pattern'
@@ -73,8 +71,7 @@ const PatternGenerator = ({ onGeneratedNewPattern }) => {
               numberOfObjects, 
               maxThrow, 
               numberOfThrows, 
-              handAcrossToAvoidEmptyHand,
-              goBackToGroundStateWhenDone,
+              allowEmptyHands,
             );
             onGeneratedNewPattern(newPattern);
             setValue(value+1);

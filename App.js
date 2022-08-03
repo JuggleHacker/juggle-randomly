@@ -21,20 +21,24 @@ export default function App() {
   const NavigationButtons = ({ currentTab, onTabChange }) => {
     return (
       <View style={styles.rowContainer}>
-          <Button 
+          <Button
             title='Generate patterns'
             disabled={currentTab == 'generating'}
             onPress={() => onTabChange('generating')}
           />
+          <Text> </Text>
           <Button 
             title='Saved patterns'
             disabled={currentTab == 'savedPatterns'}
             onPress={() => onTabChange('savedPatterns')}
+            style={{borderWidth:5}}
           />
+          <Text> </Text>
           <Button
             title='Speech settings'
             disabled={currentTab == 'speechSettings'}
             onPress={() => onTabChange('speechSettings')}
+            style={{borderWidth:5}}
           />
         </View>
     )

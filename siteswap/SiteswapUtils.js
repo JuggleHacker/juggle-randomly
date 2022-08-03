@@ -30,21 +30,23 @@ function stateAftermakingThrow(state, throwToMake) {
     numberOfObjects, 
     maxThrowHeight, 
     throwsToMake, 
-    handAcrossToAvoidEmptyHand,
-    goBackToGroundStateWhenDone,
+    allowEmptyHands,
     ) {
     const groundState = Array(numberOfObjects).fill(1)
     var throwsMade = 0
     var state = groundState.slice()
     var siteswap = []
-    var allowedToStop = false
-    while (throwsMade < throwsToMake || !allowedToStop) {
+    while (throwsMade < throwsToMake) {
       const possibleThrows = validThrows(state, [...Array(maxThrowHeight+1).keys()])
-      const chosenThrow = state[1] == 0 && handAcrossToAvoidEmptyHand ? 1 : possibleThrows[Math.floor(Math.random() * possibleThrows.length)]
-      throwsMade += 1
+      const chosenThrow = state[1] == 0 && !allowEmptyHands ? 1 : possibleThrows[Math.floor(Math.random() * possibleThrows.length)]
       state = stateAftermakingThrow(state, chosenThrow)
       siteswap = siteswap.concat(chosenThrow)
-      var allowedToStop = !goBackToGroundStateWhenDone || JSON.stringify(state) == JSON.stringify(groundState)
+      throwsMade += 1
+    }
+    while (JSON.stringify(state) !== JSON.stringify(groundState)){
+        const transitionThrow = state.indexOf(0)
+        siteswap = siteswap.concat(transitionThrow)
+        state = stateAftermakingThrow(state, transitionThrow)
     }
     return siteswap
   }
