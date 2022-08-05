@@ -5,13 +5,13 @@ import DropdownExample from './DropdownExample';
 import InputAndPrompt from './InputAndPrompt';
 import SaveButton from './SaveButton';
 
-const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction, placeholderVoice, pauseBetweenLoops, setPauseBetweenLoops }) => {
+const SpeechInputs = ({ setVoice, setTalkingSpeed, voices, setNumberOfRepetitions, introduction, setIntroduction, saveIntroduction, placeholderVoice, pauseBetweenLoops, setPauseBetweenLoops, width }) => {
     return (
         <View
             style={{
                 borderWidth: 5,
                 borderRadius: 20,
-                width: 500,
+                width: width,
                 }}
         >
             <Text

@@ -74,7 +74,6 @@ export default function App() {
   }
 
   const storeSavedPatterns = async (value) => {
-    console.log(value);
     try {
       await AsyncStorage.setItem('@savedPatterns', value)
     } catch (e) {
@@ -86,7 +85,6 @@ export default function App() {
     try {
       const value = await AsyncStorage.getItem('@savedPatterns')
       if(value !== null) {
-        console.log(`Saved patterns : ${value}`)
         setSavedPatterns(JSON.parse(value))
       }
     } catch(e) {
@@ -96,7 +94,6 @@ export default function App() {
 
   const storeIntroduction = async (value) => {
     try {
-      console.log(`Storing ${value}`)
       await AsyncStorage.setItem('@introduction', value)
     } catch (e) {
       console.log(`saving error: ${e}`)
@@ -107,7 +104,6 @@ export default function App() {
     try {
       const value = await AsyncStorage.getItem('@introduction')
       if(value !== null) {
-        console.log(value)
         setIntroduction(value)
       }
     } catch(e) {
@@ -195,6 +191,7 @@ export default function App() {
             placeholderVoice={voice ?? voices[0]}
             pauseBetweenLoops={pauseBetweenLoops}
             setPauseBetweenLoops={setPauseBetweenLoops}
+            width={widthToUse}
         />
       </View>
     )
