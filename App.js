@@ -49,7 +49,7 @@ export default function App() {
 
   const NavigationButtons = ({ currentTab, onTabChange }) => {
     return (
-      <View style={styles.rowContainer}>
+      <View style={{...styles.container, flexDirection:'row', flexWrap:'wrap', marginBottom:20}}>
           <Button
             title='Generate patterns'
             disabled={currentTab == 'generating'}
