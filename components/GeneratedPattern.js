@@ -10,13 +10,13 @@ const GeneratedPattern = ({ pattern, talkingSpeed, voice, savePattern, alreadySa
     const patternAsText = pattern.join(' ');
     const hiddenPattern = '* '.repeat(pattern.length);
     return (
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', flexWrap:'wrap'}}>
             <Text
                 style={{
                     marginRight:16,
                     fontSize:24,
                     justifyContent: 'bottom',
-                    alignItems:'right'
+                    alignItems:'right',
                 }}
             >{numberInList}</Text>
             <Text

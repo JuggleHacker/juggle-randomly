@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import PatternGenerator from './components/PatternGenerator';
 import SavedPatterns from './components/ListOfPatterns';
 import SpeechInput from './components/SpeechInputs';
@@ -18,6 +18,34 @@ export default function App() {
   const [numberOfRepetitions, setNumberOfRepetitions] = useState(10);
   const [introduction, setIntroduction] = useState('Ready, steady, go!');
   const [pauseBetweenLoops, setPauseBetweenLoops] = useState(true);
+
+  const {height, width} = useWindowDimensions();
+  const widthToUse = Math.min(width, 500);
+    
+  const styles = StyleSheet.create({
+    title: {
+      margin: 8,
+      fontWeight: 'bold',
+      fontSize: 20,
+    },
+    container: {
+      width: widthToUse,
+      height: height,
+      alignItems: "center",
+      justifyContent: "center",
+      alignSelf: "center",
+    },
+    rowContainer: {
+      flexDirection: "row",
+      marginBottom: 20,
+    },
+    checkbox: {
+      alignSelf: "center",
+    },
+    label: {
+      margin: 8,
+    },
+  });
 
   const NavigationButtons = ({ currentTab, onTabChange }) => {
     return (
@@ -112,8 +140,7 @@ export default function App() {
           onTabChange={setActiveTab}
         />
         <PatternGenerator 
-            voice={voice}
-            talkingSpeed={talkingSpeed}
+            width={widthToUse}
             onGeneratedNewPattern={(newPattern) => setGeneratedPatterns(generatedPatterns.concat([newPattern]))}
         />
         { generatedPatterns.length > 0 ?
@@ -121,7 +148,7 @@ export default function App() {
             style={{
               borderWidth: 5,
               borderRadius: 20,
-              width: 500
+              width:widthToUse,
             }}
           >
             <ListOfPatterns
@@ -182,7 +209,7 @@ export default function App() {
           style={{
             borderWidth: 5,
             borderRadius: 20,
-            width: 500
+            width: widthToUse
           }}
         >
         { savedPatterns.length > 0 ?
@@ -217,26 +244,3 @@ export default function App() {
     )
   }
 }
-  
-const styles = StyleSheet.create({
-  title: {
-    margin: 8,
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  rowContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  checkbox: {
-    alignSelf: "center",
-  },
-  label: {
-    margin: 8,
-  },
-});

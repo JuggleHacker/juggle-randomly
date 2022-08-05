@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import CheckBoxAndPrompt from './CheckboxAndPrompt';
 import generateRandomSiteswap from '../siteswap/SiteswapUtils';
 
-const PatternGenerator = ({ onGeneratedNewPattern }) => {
+const PatternGenerator = ({ onGeneratedNewPattern, width }) => {
     const [numberOfObjects, setNumberOfObjects] = useState(3)
     const [maxThrow, setMaxThrow] = useState(5)
     const [allowEmptyHands, setAllowEmptyHands] = useState(false);
@@ -16,7 +16,7 @@ const PatternGenerator = ({ onGeneratedNewPattern }) => {
         style={{
           borderWidth: 5,
           borderRadius: 20,
-          width: 500,
+          width: width,
           height: 250,
         }}
       >

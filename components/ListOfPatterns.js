@@ -18,7 +18,7 @@ const ListOfPatterns = ({ title, patterns, talkingSpeed, voice, savePattern, alr
                 <Text style={{margin:8}}>Delete all patterns: </Text>
                 <DeleteButton deletePattern={deleteAllPatterns} />
             </View>
-            <View style={{flexDirection:'row'}}>
+            <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <PatternList 
                     patterns={patterns}
                     revealAll={revealAll}
